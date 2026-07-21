@@ -5,15 +5,12 @@ RUN	apt-get update && apt-get install -y /
 	openssl /
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN	mkdir -p /etc/nginx/ssl
 
-RUN 	openssl req -x509 -nodes -days 777 -newkey rsa:2048 \
-    	-keyout /etc/nginx/ssl/inception.key \
-    	-out /etc/nginx/ssl/inception.crt \
-    	-subj "CN=nosahimi.42.fr"
+COPY	conf/nginx.conf	/etc/nginx/conf.d/
+COPY	tool/setup.sh	/usr/local/bin/setup.sh
 
-COPY	conf/nginx.conf /etc/nginx/conf.d/
+RUN	chmod +x /usr/local/bin/setup.sh
 
 EXPOSE 443
 
-ENTRYPOINT  ["nginx", "-g", "daemon off;"]
+ENTRYPOINT  ["/usr/local/bin/setup.sh"]
