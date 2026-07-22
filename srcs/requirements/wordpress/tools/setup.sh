@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+WP_PATH=/var/www/wordpress
+
+DB_PASSWORD=$(cat "$MYSQL_PASSWORD_FILE")
+WP_ADMIN_PASSWORD=$(cat "$WP_ADMIN_PASSWORD_FILE")
+WP_USER_PASSWORD=$(cat "$WP_USER_PASSWORD_FILE")
+
+
